@@ -16,8 +16,8 @@ class AktivitasDanaKuScreen extends StatelessWidget {
   final String userBranch = "Central Branch";
   final int saldo = 64594000;
 
-  final Color darkGreen = const Color(0xFF4C7148);
-  final Color lightGreen = const Color(0xFFA3C78D);
+  final Color darkGreen = AppStyles.colorPrimary;
+  final Color lightGreen = AppStyles.colorAccent;
   LoginController loginController;
   DashboardController dashboardController;
   ListAllTransactionController listAllTransactionController;
@@ -28,9 +28,9 @@ class AktivitasDanaKuScreen extends StatelessWidget {
     dashboardController = Get.find<DashboardController>();
     dashboardController.loadDashboard();
     listAllTransactionController = Get.find<ListAllTransactionController>();
-    listAllTransactionController.fetchTransactionsIncome(loginController.userSession['username']);
-    listAllTransactionController.fetchTransactionsTransfer(loginController.userSession['username']);
-    listAllTransactionController.fetchTransactionsExpense(loginController.userSession['username']);
+    // listAllTransactionController.fetchTransactionsIncome(loginController.userSession['username']);
+    // listAllTransactionController.fetchTransactionsTransfer(loginController.userSession['username']);
+    // listAllTransactionController.fetchTransactionsExpense(loginController.userSession['username']);
 
     return Scaffold(
       backgroundColor: lightGreen.withOpacity(0.05),
@@ -224,13 +224,17 @@ class AktivitasDanaKuScreen extends StatelessWidget {
         _MenuButton(
           label: 'Transfer',
           icon: FontAwesomeIcons.exchangeAlt,
-          onTap: () {},
+          onTap: () {
+            Get.toNamed(RouterGenerator.routeUangMutasiDanaKu);
+          },
           color: darkGreen,
         ),
         _MenuButton(
           label: 'Uang Keluar',
           icon: FontAwesomeIcons.arrowUp,
-          onTap: () {},
+          onTap: () {
+            Get.toNamed(RouterGenerator.routeUangKeluarDanaKu);
+          },
           color: lightGreen,
         ),
       ],

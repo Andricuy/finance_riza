@@ -3,7 +3,9 @@
 import 'package:finance_riza/ui_dana_ku/login/login_screen.dart';
 import 'package:finance_riza/ui_dana_ku/menu_dana_ku/menu_dana_ku_screen.dart';
 import 'package:finance_riza/ui_dana_ku/splash/splash_screen.dart';
+import 'package:finance_riza/ui_dana_ku/uang_keluar/uang_keluar.dart';
 import 'package:finance_riza/ui_dana_ku/uang_masuk/uang_masuk_screen.dart';
+import 'package:finance_riza/ui_dana_ku/uang_mutasi/uang_mutasi.dart';
 import 'package:flutter/material.dart';
 
 class RouterGenerator {
@@ -23,6 +25,10 @@ class RouterGenerator {
       return MaterialPageRoute(builder: (_) => LoginScreen());
     } else if (settings.name == routeUangMasuk) {
       return MaterialPageRoute(builder: (_) => UangMasukScreen());
+    }else if (settings.name == routeUangMutasiDanaKu) {
+      return MaterialPageRoute(builder: (_) => UangMutasiScreen());
+    }else if (settings.name == routeUangKeluarDanaKu) {
+      return MaterialPageRoute(builder: (_) => UangKeluarScreen());
     }
   }
 }

@@ -70,7 +70,7 @@ class ProfileDanaKuScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          loginController.userSession["nama"] ?? "-",
+                          loginController.userSession["username"] ?? "-",
                           style: TextStyle(
                             fontSize: 19,
                             fontWeight: FontWeight.w900,
@@ -80,51 +80,33 @@ class ProfileDanaKuScreen extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(height: 3),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.verified_user, color: lightGreen, size: 17),
-                            SizedBox(width: 6),
-                            Obx(() => Text(
-                                  loginController.userSession['status'] ?? "-",
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                    color: lightGreen,
-                                    letterSpacing: 0.6,
-                                  ),
-                                ),
-                            ),
-                          ],
-                        ),
+                    
                       ],
                     ),
                   ),
                 ),
               ),
               // Jarak lebih kecil
-              SizedBox(height: 14),
+             
               // BODY: Info & Actions
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 26, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                   child: ListView(
                     children: [
+                     
+                      // Username
                       _InfoTile(
-                        icon: Icons.home_work,
-                        title: loginController.userSession["branch"] ?? "-",
+                        icon: Icons.person,
+                        title: "Username: ${loginController.userSession["username"] ?? "-"}",
                         color: darkGreen,
                       ),
-                      Divider(color: darkGreen.withOpacity(0.18)),
                       SizedBox(height: 4),
-                      _ActionTile(
-                        icon: Icons.lock_outline_rounded,
-                        title: "Ubah Password",
+                      // Email
+                      _InfoTile(
+                        icon: Icons.email,
+                        title: "Email: ${loginController.userSession["email"] ?? "-"}",
                         color: darkGreen,
-                        onTap: () {
-                          // Get.toNamed(RouterGenerator.routeUpdatePassword);
-                        },
                       ),
                       Divider(color: darkGreen.withOpacity(0.18)),
                       SizedBox(height: 12),
@@ -139,6 +121,7 @@ class ProfileDanaKuScreen extends StatelessWidget {
                             ),
                             elevation: 2,
                             padding: EdgeInsets.symmetric(vertical: 14),
+                            shadowColor: Colors.redAccent.withOpacity(0.18),
                           ),
                           icon: Icon(Icons.logout, color: Colors.white, size: 20),
                           label: Text(
@@ -147,12 +130,66 @@ class ProfileDanaKuScreen extends StatelessWidget {
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
+                              letterSpacing: 0.7,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black.withOpacity(0.13),
+                                  blurRadius: 2,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
                             ),
                           ),
                           onPressed: () {
-                            UserSession().deleteUser().then((value) {
-                              Get.offAllNamed(RouterGenerator.routeSplash);
-                            });
+                            Get.dialog(
+                              Dialog(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(Icons.logout, color: Colors.red[400], size: 44),
+                                      SizedBox(height: 12),
+                                      Text(
+                                        "Konfirmasi Logout",
+                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red[400]),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text(
+                                        "Apakah Anda yakin ingin keluar dari aplikasi?",
+                                        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(height: 22),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () => Get.back(),
+                                            child: Text("Batal", style: TextStyle(color: Colors.grey[600])),
+                                          ),
+                                          SizedBox(width: 10),
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red[400],
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                            ),
+                                            onPressed: () {
+                                              UserSession().deleteUser().then((value) {
+                                                Get.offAllNamed(RouterGenerator.routeSplash);
+                                              });
+                                            },
+                                            child: Text("Logout", style: TextStyle(color: Colors.white)),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              barrierDismissible: false,
+                            );
                           },
                         ),
                       ),

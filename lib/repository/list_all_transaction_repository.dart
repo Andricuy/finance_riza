@@ -10,7 +10,7 @@ class ListAllTransactionRepository {
   final LoginController loginController = Get.find<LoginController>();
 
   /// Fetch paginated transactions for the given username and page
-  Future<ListAllTransaction> fetchPaged(String username, int page) async {
+  Future<ListAllTransaction> fetchPaged(int username, int page) async {
     final uri = Uri.parse( baseUrl +'transactions?username=$username&page=$page');
     final response = await http.get(
       uri,
@@ -27,4 +27,19 @@ class ListAllTransactionRepository {
       throw Exception('Failed to fetch transactions, status: \${response.statusCode}');
     }
   }
+
+  Future<bool> deleteTransaction(int id) async {
+  final response = await http.delete(
+    Uri.parse( baseUrl + 'transactions/$id'),
+    headers: {
+      'Authorization': 'Bearer ${loginController.userSession["token"]}',
+      'Content-Type': 'application/json',
+    },
+  );
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    throw Exception('Gagal menghapus transaksi');
+  }
+}
 }

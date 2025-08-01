@@ -4,6 +4,8 @@ import 'package:finance_riza/controller/login_controller.dart';
 import 'package:finance_riza/controller/save_login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:finance_riza/style/styles.dart';
+import 'package:finance_riza/style/logo.dart';
 
 
 
@@ -15,8 +17,8 @@ class LoginScreen extends StatelessWidget {
 
   var formKey = GlobalKey<FormState>();
 
-  final Color darkGreen = Color(0xFF4C7148);
-  final Color lightGreen = Color(0xFFA3C78D);
+  final Color darkGreen = AppStyles.colorPrimary;
+  final Color lightGreen = AppStyles.colorAccent;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class LoginScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: lightGreen.withOpacity(0.15),
+      backgroundColor: AppStyles.colorAccent.withOpacity(0.15),
       body: Center(
         child: SingleChildScrollView(
           child: Form(
@@ -37,19 +39,9 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Logo dan ornamen
-                Container(
-                  margin: EdgeInsets.only(bottom: 18),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    border: Border.all(color: darkGreen, width: 3),
-                  ),
-                  padding: EdgeInsets.all(12),
-                  child: Image.asset(
-                    "assets/img/logo-adz.png",
-                    width: 90,
-                    height: 90,
-                  ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 18),
+                  child: DollarLogo(size: 90),
                 ),
                 // Card Form
                 Card(
@@ -67,20 +59,20 @@ class LoginScreen extends StatelessWidget {
                           "Selamat Datang",
                           style: theme.textTheme.headline6?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: darkGreen,
+                            color: AppStyles.colorPrimary,
                           ),
                         ),
                         SizedBox(height: 6),
                         Text(
                           "Silakan login untuk melanjutkan",
-                          style: theme.textTheme.bodyText2?.copyWith(color: darkGreen.withOpacity(0.75)),
+                          style: theme.textTheme.bodyText2?.copyWith(color: AppStyles.colorPrimary.withOpacity(0.75)),
                         ),
                         SizedBox(height: 26),
 
                         // Username
                         Container(
                           decoration: BoxDecoration(
-                            color: lightGreen.withOpacity(0.16),
+                            color: AppStyles.colorAccent.withOpacity(0.16),
                             borderRadius: BorderRadius.circular(18),
                           ),
                           child: TextFormField(
@@ -94,12 +86,12 @@ class LoginScreen extends StatelessWidget {
                               }
                               return null;
                             },
-                            style: TextStyle(fontSize: 15, color: darkGreen),
+                            style: TextStyle(fontSize: 15, color: AppStyles.colorPrimary),
                             decoration: InputDecoration(
                               hintText: "Username",
-                              prefixIcon: Icon(Icons.account_circle, color: darkGreen),
+                              prefixIcon: Icon(Icons.account_circle, color: AppStyles.colorPrimary),
                               suffixIcon: IconButton(
-                                icon: Icon(Icons.arrow_drop_down, color: darkGreen),
+                                icon: Icon(Icons.arrow_drop_down, color: AppStyles.colorPrimary),
                                 onPressed: () {
                                   saveLoginController.showSavedLogins();
                                 },
@@ -116,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                         Obx(
                           () => Container(
                             decoration: BoxDecoration(
-                              color: lightGreen.withOpacity(0.16),
+                              color: AppStyles.colorAccent.withOpacity(0.16),
                               borderRadius: BorderRadius.circular(18),
                             ),
                             child: TextFormField(
@@ -130,17 +122,17 @@ class LoginScreen extends StatelessWidget {
                                 }
                                 return null;
                               },
-                              style: TextStyle(fontSize: 15, color: darkGreen),
+                              style: TextStyle(fontSize: 15, color: AppStyles.colorPrimary),
                               obscureText: loginController.isObscured.value,
                               decoration: InputDecoration(
                                 hintText: "Password",
-                                prefixIcon: Icon(Icons.lock, color: darkGreen),
+                                prefixIcon: Icon(Icons.lock, color: AppStyles.colorPrimary),
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     loginController.isObscured.value
                                         ? Icons.visibility_off
                                         : Icons.visibility,
-                                    color: darkGreen,
+                                    color: AppStyles.colorPrimary,
                                   ),
                                   onPressed: () {
                                     loginController.obsucureEvent();
@@ -160,7 +152,7 @@ class LoginScreen extends StatelessWidget {
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                             primary: darkGreen,
+                              primary: AppStyles.colorPrimary,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
@@ -193,7 +185,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 18),
                 Text(
                   "© 2025 Yayasan ADZ-DZURRIYAT",
-                  style: theme.textTheme.caption?.copyWith(color: darkGreen.withOpacity(0.60)),
+                  style: theme.textTheme.caption?.copyWith(color: AppStyles.colorPrimary.withOpacity(0.60)),
                 ),
               ],
             ),
